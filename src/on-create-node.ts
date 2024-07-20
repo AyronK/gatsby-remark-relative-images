@@ -16,6 +16,13 @@ export type GatsbyPluginArgs = {
   reporter: {
     info: (msg: string, error?: Error) => void;
   };
+  actions: {
+    createNodeField: (args: {
+      node: MarkdownNode;
+      name: string;
+      value: any;
+    }) => void;
+  };
 };
 
 export const onCreateNode = (
@@ -57,7 +64,7 @@ export const onCreateNode = (
       const newValue = slash(path.relative(directory, file.absolutePath));
 
       this.update(newValue);
-      
+
       createNodeField({
         node,
         name: `frontmatter`,
